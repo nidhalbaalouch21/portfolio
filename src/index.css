@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #000000;
+  --color-surface: #0a0f12;
+  --color-primary: #0057fe;
+  --color-accent: #0057fe;
+  --color-text: #eaeae9;
+  --color-muted: #80a5e2;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --shadow-glass: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --shadow-glass-hover: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background-color: color-mix(in srgb, var(--color-surface) 60%, transparent);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-glass);
+    transition-property: all;
+    transition-duration: 500ms;
+    will-change: transform;
+  }
+
+  .glass-panel-hover:hover {
+    background-color: color-mix(in srgb, var(--color-surface) 80%, transparent);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-glass-hover);
+    transform: translateY(-8px);
+  }
+
+  .isometric {
+    transform: perspective(1000px) rotateX(20deg) rotateZ(-10deg);
+    transform-style: preserve-3d;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(0, 87, 254, 0.2);
+  }
+
+  .bg-grid {
+    background-size: 50px 50px;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Ecoframe page selection styling */
+.ecoframe-page ::selection {
+  background: #ff2e63;
+  color: white;
+}
+.ecoframe-page::-moz-selection {
+  background: #ff2e63;
+  color: white;
+}
+
+/* Lenis Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
